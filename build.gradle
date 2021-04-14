@@ -3,7 +3,7 @@ plugins {
 }
 
 repositories {
-    mavenCentral() //откуда забираем библиотеки зависимостей
+    mavenCentral() //откуда забираем библиотеки зависимостей!
 }
 
 def selenideVersion = "5.20.1",
