@@ -60,6 +60,26 @@ public class ReadFiles {
         return result;
     }
 
+    public static String readCellOfXlsx(String path) throws IOException, NullPointerException{
+        File excelFile = new File(path);
+        FileInputStream fis = new FileInputStream(excelFile);
+        String actualText = "";
+        XSSFWorkbook workbook = new XSSFWorkbook(fis);
+        XSSFSheet sheet = workbook.getSheetAt(0);
+        Iterator<Row> rowIt = sheet.iterator();
+        while(rowIt.hasNext()) {
+            Row row = rowIt.next();
+            Iterator<Cell> cellIterator = row.cellIterator();
+            while(cellIterator.hasNext()) {
+                Cell cell = cellIterator.next();
+                actualText = cell.toString();
+            }
+        }
+        workbook.close();
+        fis.close();
+        return actualText;
+    }
+
     public static String readDocxFromFilePath(String path) throws Exception{
         FileInputStream fis = new FileInputStream(getFile(path));
         XWPFDocument document = new XWPFDocument(fis);

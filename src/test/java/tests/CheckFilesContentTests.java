@@ -21,6 +21,15 @@ public class CheckFilesContentTests {
     }
 
     @Test
+    void xlsxCellTest() throws IOException{
+        String xlsxFilePath = "./src/test/resources/files/xlsxFile.xlsx";
+        String expectedText = "Xlsx for test";
+        String actualText = readCellOfXlsx(xlsxFilePath);
+        System.out.println(actualText);
+        assertThat(actualText, containsString(expectedText));
+    }
+
+    @Test
     void docxFileTest() throws Exception {
         String docxFilePath = "./src/test/resources/files/docxFile.docx";
         String expectedText = "Docx for test";
