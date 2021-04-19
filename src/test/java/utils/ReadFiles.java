@@ -4,6 +4,7 @@ import com.codeborne.pdftest.PDF;
 import org.apache.commons.io.FileUtils;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
@@ -11,6 +12,7 @@ import org.apache.poi.xwpf.usermodel.XWPFDocument;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
@@ -60,7 +62,7 @@ public class ReadFiles {
         return result;
     }
 
-    public static String readCellOfXlsx(String path) throws IOException, NullPointerException{
+    public static String readCellsFromXlsx(String path) throws IOException, NullPointerException{
         File excelFile = new File(path);
         FileInputStream fis = new FileInputStream(excelFile);
         String actualText = "";
@@ -78,6 +80,15 @@ public class ReadFiles {
         workbook.close();
         fis.close();
         return actualText;
+    }
+
+    public static String readSpecificCellFromXlsx(String path, int indexSheet, int indexRow, int indexColumn) throws FileNotFoundException, IOException{
+        File excelFile = new File(path);
+        FileInputStream fis = new FileInputStream(excelFile);
+        XSSFWorkbook workbook = new XSSFWorkbook(fis);
+        XSSFSheet sheet = workbook.getSheetAt(indexSheet);
+        XSSFRow row = sheet.getRow(indexRow);
+        return row.getCell(indexColumn).toString();
     }
 
     public static String readDocxFromFilePath(String path) throws Exception{

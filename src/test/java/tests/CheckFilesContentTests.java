@@ -21,10 +21,21 @@ public class CheckFilesContentTests {
     }
 
     @Test
-    void xlsxCellTest() throws IOException{
+    void xlsxCheckingCellsTest() throws IOException{
         String xlsxFilePath = "./src/test/resources/files/xlsxFile.xlsx";
         String expectedText = "Xlsx for test";
-        String actualText = readCellOfXlsx(xlsxFilePath);
+        String actualText = readCellsFromXlsx(xlsxFilePath);
+        assertThat(actualText, containsString(expectedText));
+    }
+
+    @Test
+    void xlsxCheckingSpecificCellTest() throws IOException{
+        String xlsxFilePath = "./src/test/resources/files/xlsxFile.xlsx";
+        String expectedText = "Xlsx for test";
+        int indexSheet = 0;
+        int indexRow = 0;
+        int indexColumn = 0;
+        String actualText = readSpecificCellFromXlsx(xlsxFilePath, indexSheet, indexRow, indexColumn);
         System.out.println(actualText);
         assertThat(actualText, containsString(expectedText));
     }
